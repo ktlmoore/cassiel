@@ -5,9 +5,10 @@
 
 ###############################################################
 # Imports
-from Game.Network.Cassiel_Msg import *
-from Game.Network.Cassiel_NetIDs import *
-from Game.Network.Cassiel_Network import *
+
+from Network.Cassiel_Msg import Cassiel_Msg
+from Network.Cassiel_NetIDs import NetID
+from Network.Cassiel_Network import Cassiel_Network
 
 ###############################################################
 # Class

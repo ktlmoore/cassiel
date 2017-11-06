@@ -1,17 +1,21 @@
 ###############################################################
-# Cassiel_NetIDs.py
+# Cassiel_Server.py
 # (C) Tom Moore 2017
 ###############################################################
 
 ###############################################################
 # Imports
 
-from enum import IntEnum
+from Network.Cassiel_Network import Cassiel_Network
 
 ###############################################################
 # Class
 
-class NetID(IntEnum):
-	SERVER = 0
-	ALL_CLIENTS = 1
-	FIRST_CLIENT = 1000
+class Cassiel_Client:
+	id = None
+	
+	def __init__(self, id):
+		self.id = id
+		Cassiel_Network.addClient(self, id)
+		
+	
