@@ -1,20 +1,16 @@
 ###############################################################
-# Cassiel_Core.py
+# Cassiel_NetIDs.py
 # (C) Tom Moore 2017
 ###############################################################
 
 ###############################################################
 # Imports
-import sys
-from Game.Server.Cassiel_Server import *
+from enum import IntEnum
 
 ###############################################################
-# Functions
+# Enums
 
-def main(argv):
-	server = Cassiel_Server()
-	server.run()
-    
-
-if __name__ == "__main__":
-    main(sys.argv)
+class NetID(IntEnum):
+	SERVER = 0
+	ALL_CLIENTS = 1
+	FIRST_CLIENT = 1000
