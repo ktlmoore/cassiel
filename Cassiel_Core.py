@@ -11,10 +11,13 @@ from Game.Server.Cassiel_Server import *
 ###############################################################
 # Functions
 
+isServer = True
+server = None
+
 def main(argv):
-	server = Cassiel_Server()
-	server.run()
-    
+	Cassiel_Core.server = Cassiel_Server()
+	
+	Cassiel_Core.server.run()
 
 if __name__ == "__main__":
     main(sys.argv)

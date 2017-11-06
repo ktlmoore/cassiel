@@ -8,7 +8,7 @@
 from enum import IntEnum
 
 ###############################################################
-# Enums
+# Class
 
 class NetID(IntEnum):
 	SERVER = 0

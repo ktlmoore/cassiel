@@ -7,17 +7,37 @@
 # Imports
 from Game.Network.Cassiel_Msg import *
 from Game.Network.Cassiel_NetIDs import *
+from Game.Network.Cassiel_Network import *
+
+###############################################################
+# Class
 
 class Cassiel_Server:
-	def __init__(self):
-		pass
-
+	name = "SERVER"
+	done = False
+	
 	def run(self):
-		msg = self.createMsg(0, NetID.ALL_CLIENTS)
-		print msg.toString()
+		while not self.done:
+			cmd = raw_input("@ ")
+			msg = self.createMsg(cmd, NetID.SERVER)
+			Cassiel_Network.sendMessage(msg)
 		
 	def createMsg(self, id, dst):
 		# Create a message with a given id and destination
 		# and stamp it with our NetID
 		msg = Cassiel_Msg(id, NetID.SERVER, dst)
 		return msg
+		
+	def send(self, msg):
+		# Send a message via the Network
+		pass
+		
+	def handleMessage(self, msg):
+		# Handle a message we've received
+		print msg.toString()
+		if (msg.id == "done"):
+			self.done = True
+		
+	@staticmethod
+	def toString():
+		return "Server::"

@@ -8,6 +8,9 @@
 
 import time
 
+###############################################################
+# Class
+
 class Cassiel_Msg:
 	id = None
 	src = None
