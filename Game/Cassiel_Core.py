@@ -6,6 +6,7 @@
 ###############################################################
 # Imports
 import sys
+import thread
 
 from Network.Cassiel_NetIDs import NetID
 from Server.Cassiel_Server import Cassiel_Server
@@ -14,9 +15,6 @@ from Network.Cassiel_Network import Cassiel_Network
 
 ###############################################################
 # Functions
-
-isServer = True
-server = None
 
 def main(argv):
 	# Handle arguments
@@ -29,10 +27,12 @@ def main(argv):
 	# Set up client and run it		
 	
 	# Set up server and run it
-	if (isServer):
-		client = Cassiel_Client(NetID.FIRST_CLIENT)
+	if (Cassiel_Network.isServer):
 		Cassiel_Network.server = Cassiel_Server()
-		Cassiel_Network.server.run()
+		Cassiel_Network.server.start()
+		
+	client = Cassiel_Client(NetID.FIRST_CLIENT)
+	client.start()
 
 if __name__ == "__main__":
     main(sys.argv)
