@@ -46,8 +46,8 @@ class Cassiel_Network:
 			Cassiel_Network.clients[to].handleMessage(msg)
 				
 	@staticmethod
-	def createMsg(src, dst, type, data, msgID):
-		# Create a message with given source, dest, type, data and msgID
-		msg = Cassiel_Msg(src, dst, type, msgID)
+	def createMsg(src, dst, data, msgID):
+		# Create a message with given source, dest, data and msgID
+		msg = Cassiel_Msg(src, dst, msgID)
 		msg.setData(data)
 		return msg

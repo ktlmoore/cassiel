@@ -5,6 +5,7 @@
 
 ###############################################################
 # Imports
+import pyglet
 import sys
 import thread
 
@@ -12,6 +13,7 @@ from Network.Cassiel_NetIDs import NetID
 from Server.Cassiel_Server import Cassiel_Server
 from Client.Cassiel_Client import Cassiel_Client
 from Network.Cassiel_Network import Cassiel_Network
+from Window.Cassiel_Window import Cassiel_Window
 
 ###############################################################
 # Functions
@@ -36,6 +38,8 @@ def main(argv):
 		Cassiel_Network.server.start()
 		
 	client = Cassiel_Client(NetID.FIRST_CLIENT)
+	window = client.window
+	pyglet.app.run()
 	client.start()
 
 if __name__ == "__main__":

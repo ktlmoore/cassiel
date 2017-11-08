@@ -10,7 +10,6 @@ import threading
 
 from Network.Cassiel_Msg import Cassiel_Msg
 from Network.Cassiel_Msg import Cassiel_MsgID
-from Network.Cassiel_Msg import Cassiel_MsgType
 from Network.Cassiel_NetIDs import NetID
 from Network.Cassiel_Network import Cassiel_Network
 
@@ -23,8 +22,6 @@ class Cassiel_Server(threading.Thread):
 	id = NetID.SERVER
 	
 	lastFrameStamp = 0
-	
-	fooTimer = 1.0
 	
 	def __init__(self):
 		threading.Thread.__init__(self)
@@ -42,18 +39,15 @@ class Cassiel_Server(threading.Thread):
 		self.update(dt)
 	
 	def update(self, dt):
-		self.fooTimer -= dt
-		if (self.fooTimer <= 0.0):
-			print "foo"
-			self.fooTimer = 1.0
+		pass
 		
 	def handleMessage(self, msg):
 		# Handle a message we've received
 		if (msg.msgID is Cassiel_MsgID.ECHO):
-			respMsg = Cassiel_Network.createMsg(id, msg.src, Cassiel_MsgType.RESPONSE, msg.data, Cassiel_MsgID.ECHO)
+			respMsg = Cassiel_Network.createMsg(id, msg.src, msg.data, Cassiel_MsgID.ECHO)
 			Cassiel_Network.sendMessage(respMsg)
 		elif (msg.msgID is Cassiel_MsgID.EXIT):
-			respMsg = Cassiel_Network.createMsg(id, msg.src, Cassiel_MsgType.COMMAND, msg.data, Cassiel_MsgID.EXIT)
+			respMsg = Cassiel_Network.createMsg(id, msg.src, msg.data, Cassiel_MsgID.EXIT)
 			Cassiel_Network.sendMessage(respMsg)
 			self.done = True
 		

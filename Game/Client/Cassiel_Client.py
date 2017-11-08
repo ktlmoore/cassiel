@@ -1,5 +1,5 @@
 ###############################################################
-# Cassiel_Server.py
+# Cassiel_Client.py
 # (C) Tom Moore 2017
 ###############################################################
 
@@ -8,34 +8,32 @@
 import threading
 
 from Network.Cassiel_Msg import Cassiel_Msg
-from Network.Cassiel_Msg import Cassiel_MsgType
 from Network.Cassiel_Msg import Cassiel_MsgID
 from Network.Cassiel_Network import Cassiel_Network
 from Network.Cassiel_Network import NetID
+from Window.Cassiel_Window import Cassiel_Window
 
 ###############################################################
 # Class
 
 class Cassiel_Client(threading.Thread):
 	id = None
-	done = False
+	window = None
 	
 	def __init__(self, id):
+		self.window = Cassiel_Window(self)
 		threading.Thread.__init__(self)
 		self.id = id
 		Cassiel_Network.addClient(self, id)
 		
 	def run(self):
-		# Run the client loop
-		while not self.done:
-			cmd = raw_input("@ ")
-			
-			msgID = Cassiel_MsgID.ECHO
-			if (cmd == "exit"):
-				msgID = Cassiel_MsgID.EXIT
-			
-			msg = Cassiel_Network.createMsg(self.id, NetID.SERVER, Cassiel_MsgType.REQUEST, cmd, msgID)
-			Cassiel_Network.sendMessage(msg)
+		while not self.window.done:
+			update()
+		exitMsg = Cassiel_Network.createMsg(id, NetID.SERVER, "", Cassiel_MsgID.EXIT)
+		Cassiel_Network.sendMessage(exitMsg)
+		
+	def update(self):
+		pass
 			
 	def handleMessage(self, msg):
 		msgID = msg.msgID
