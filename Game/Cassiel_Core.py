@@ -17,6 +17,10 @@ from Network.Cassiel_Network import Cassiel_Network
 # Functions
 
 def main(argv):
+	if (len(argv) == 1):
+		print "No arguments!"
+		pass
+	
 	# Handle arguments
 	for arg in argv[1:]:
 		if (arg == "-s"):

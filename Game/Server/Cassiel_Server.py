@@ -5,6 +5,7 @@
 
 ###############################################################
 # Imports
+import time
 import threading
 
 from Network.Cassiel_Msg import Cassiel_Msg
@@ -21,15 +22,30 @@ class Cassiel_Server(threading.Thread):
 	done = False
 	id = NetID.SERVER
 	
+	lastFrameStamp = 0
+	
+	fooTimer = 1.0
+	
 	def __init__(self):
 		threading.Thread.__init__(self)
+		self.lastFrameStamp = time.time()
 	
 	def run(self):
-		pass
-		
-	def send(self, msg):
-		# Send a message via the Network
-		pass
+		while not self.done:
+			self._update()
+	
+	def _update(self):
+		# Work out delta time and cause a global update based on that time change
+		thisFrameStamp = time.time()
+		dt = (thisFrameStamp - self.lastFrameStamp)
+		self.lastFrameStamp = thisFrameStamp
+		self.update(dt)
+	
+	def update(self, dt):
+		self.fooTimer -= dt
+		if (self.fooTimer <= 0.0):
+			print "foo"
+			self.fooTimer = 1.0
 		
 	def handleMessage(self, msg):
 		# Handle a message we've received
@@ -39,6 +55,7 @@ class Cassiel_Server(threading.Thread):
 		elif (msg.msgID is Cassiel_MsgID.EXIT):
 			respMsg = Cassiel_Network.createMsg(id, msg.src, Cassiel_MsgType.COMMAND, msg.data, Cassiel_MsgID.EXIT)
 			Cassiel_Network.sendMessage(respMsg)
+			self.done = True
 		
 	@staticmethod
 	def toString():
